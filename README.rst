@@ -20,11 +20,9 @@ The package can be installed via pip using:
 
 Example:
 --------
-Run the load base case as
+Run the load base case as:
 
 .. code-block:: python
-   :linenos:
-   :emphasize-lines: 3,5-6
 
    from tensorpowerflow import GridTensor
    import numpy as np
