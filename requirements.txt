@@ -1,0 +1,9 @@
+numpy>=1.22.4
+pandas>=1.4.2
+matplotlib~=3.5.2
+scipy>=1.8.0
+tqdm>=4.64.0
+numba
+networkx>=2.7.1
+seaborn>=0.11.2
+pandapower>=2.8.0

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tensorpowerflow"
+version = "0.0.1"
+urls = {repository = "https://github.com/MauricioSalazare/tensorpowerflow"}
+authors = [{author = "Mauricio Salazar", email = "e.m.salazar.duque@tue.nl"},]
+description = "Ultra fast power flow based in Laurent series expansion."
+readme = "README.md"
+keywords = ["power flow", "power systems", "time series loading"]
+license = {text = "MIT"}
+classifiers = ["Programming Language :: Python :: 3",
+               "License :: OSI Approved :: MIT License",
+               "Operating System :: OS Independent",]
+dependencies = ["numpy>=1.22.4",
+                "pandas>=1.4.2",
+                "matplotlib>=3.5.2",
+                "scipy>=1.8.0",
+                "tqdm>=4.64.0",
+                "numba",
+                "networkx>=2.7.1",
+                "seaborn>=0.11.2",
+                "pandapower>=2.8.0"]
+requires-python = ">=3.7"
+
+[project.optional-dependencies]
+dev = ["build", "twine", "matplotlib", "jupyterlab"]
+test = ["pytest >=2.7.3"]
+doc = ["sphinx"]
+
+[tool.setuptools]
+include-package-data = true
+package-data = {"*" = ["*.csv"]}  # Automatically enables include-package-data=true
+

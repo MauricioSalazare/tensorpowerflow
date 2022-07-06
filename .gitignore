@@ -1,0 +1,8 @@
+build/
+dist/
+.idea/
+examples/.ipynb_checkpoints/
+.pytests_cache/
+*.pyc
+*.pyd
+*.xml
