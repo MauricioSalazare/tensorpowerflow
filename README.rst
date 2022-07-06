@@ -18,6 +18,36 @@ The package can be installed via pip using:
 
     pip install tensorpowerflow
 
+Example:
+--------
+Run the load base case as
+
+.. code-block:: python
+   :linenos:
+   :emphasize-lines: 3,5-6
+
+   from tensorpowerflow import GridTensor
+   import numpy as np
+
+   #%% Solve base case
+   network = GridTensor()
+   solution = network.run_pf_sequential()
+   print(solution["v"])
+
+   #%% Solve 10_000 power flows
+   network_size = network.nb - 1  # Remove slack node
+   active_ns = np.random.normal(50, scale=1, size=(10_000, network_size))
+   reactive_ns = active_ns * 0.1
+   solution_tensor = network.run_pf_tensor(active_power=active_ns, reactive_power=reactive_ns)
+   print(solution_tensor["v"])
+
+   #%% Generate random radial network of 100 nodes and maximum 3 branches.
+   network_rnd = GridTensor.generate_from_graph(nodes=100, child=3, plot_graph=True)
+   solution_rnd = network_rnd.run_pf_sequential()
+   print(solution_rnd["v"])
+
+
+
 Reading and citations:
 ----------------------
 The mathematical formulation of the power flow can be found at:
