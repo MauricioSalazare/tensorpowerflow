@@ -8,7 +8,7 @@ version = "0.0.1"
 urls = {repository = "https://github.com/MauricioSalazare/tensorpowerflow"}
 authors = [{author = "Mauricio Salazar", email = "e.m.salazar.duque@tue.nl"},]
 description = "Ultra fast power flow based in Laurent series expansion."
-readme = "README.md"
+readme = "README.rst"
 keywords = ["power flow", "power systems", "time series loading"]
 license = {text = "MIT"}
 classifiers = ["Programming Language :: Python :: 3",
@@ -23,7 +23,7 @@ dependencies = ["numpy>=1.22.4",
                 "networkx>=2.7.1",
                 "seaborn>=0.11.2",
                 "pandapower>=2.8.0"]
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 
 [project.optional-dependencies]
 dev = ["build", "twine", "matplotlib", "jupyterlab"]
@@ -32,5 +32,9 @@ doc = ["sphinx"]
 
 [tool.setuptools]
 include-package-data = true
-package-data = {"*" = ["*.csv"]}  # Automatically enables include-package-data=true
+package-data = {"*" = ["data/*.csv"]}  # Automatically enables include-package-data=true
 
+[tool.setuptools.packages.find]
+where = ["."]  # list of folders that contain the packages (["."] by default)
+include = ["tensorpowerflow*"]
+namespaces = true

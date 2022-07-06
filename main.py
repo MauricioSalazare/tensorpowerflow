@@ -1,6 +1,7 @@
 from tensorpowerflow import GridTensor
 import numpy as np
 
+
 #%% Solve base case
 network = GridTensor()
 solution = network.run_pf_sequential()
