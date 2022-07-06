@@ -27,24 +27,24 @@ Run the load base case as:
    from tensorpowerflow import GridTensor
    import numpy as np
 
-   #%% Solve base case
+   #%% Solve base case (34 node bus)
    network = GridTensor()
    solution = network.run_pf_sequential()
    print(solution["v"])
 
-   #%% Solve 10_000 power flows
+   #%% Solve 10_000 power flows on the 34 node bus case.
    network_size = network.nb - 1  # Remove slack node
-   active_ns = np.random.normal(50, scale=1, size=(10_000, network_size))
-   reactive_ns = active_ns * 0.1
+   active_ns = np.random.normal(50, scale=1, size=(10_000, network_size)) # Power in kW
+   reactive_ns = active_ns * 0.1  # kVAr
    solution_tensor = network.run_pf_tensor(active_power=active_ns, reactive_power=reactive_ns)
    print(solution_tensor["v"])
 
-   #%% Generate random radial network of 100 nodes and maximum 3 branches.
+   #%% Generate random radial network of 100 nodes and a maximum of 1 to 3 branches per node.
    network_rnd = GridTensor.generate_from_graph(nodes=100, child=3, plot_graph=True)
    solution_rnd = network_rnd.run_pf_sequential()
    print(solution_rnd["v"])
 
-
+More examples can be found in the examples folder (under development).
 
 Reading and citations:
 ----------------------
