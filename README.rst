@@ -18,9 +18,14 @@ The package can be installed via pip using:
 
     pip install tensorpowerflow
 
-Readings
---------
+Reading and citations:
+----------------------
 The mathematical formulation of the power flow can be found at:
 
-"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series." JS Giraldo,
-OD Montoya, PP Vergara, F Milano. Power Systems Computational Conference (PSCC) 2022. `link <http://faraday1.ucd.ie/archive/papers/laurent.pdf>`_
+"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series." J.S. Giraldo,
+O.D. Montoya, P.P. Vergara, F. Milano. Power Systems Computational Conference (PSCC) 2022. `link <http://faraday1.ucd.ie/archive/papers/laurent.pdf>`_
+
+
+How to contact us
+-----------------
+Any questions, suggestions or collaborations contact Juan S. Giraldo at <j.s.giraldochavarriaga@utwente.nl>
