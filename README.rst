@@ -23,5 +23,5 @@ Readings
 --------
 The mathematical formulation of the power flow can be found at:
 
-.. [citl]_"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series." JS Giraldo,
+"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series." JS Giraldo,
 OD Montoya, PP Vergara, F Milano. Power Systems Computational Conference (PSCC) 2022. `link <http://faraday1.ucd.ie/archive/papers/laurent.pdf>`_
