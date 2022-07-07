@@ -56,4 +56,4 @@ O.D. Montoya, P.P. Vergara, F. Milano. Power Systems Computational Conference (P
 
 How to contact us
 -----------------
-Any questions, suggestions or collaborations contact Juan S. Giraldo at <j.s.giraldochavarriaga@utwente.nl>
+Any questions, suggestions or collaborations contact Juan S. Giraldo at <jnse@ieee.org>
