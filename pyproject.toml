@@ -23,7 +23,7 @@ dependencies = ["numpy",
                 "networkx",
                 "seaborn",
                 "pandapower"]
-#requires-python = ">=3.0"
+requires-python = ">=3.0"
 
 [project.optional-dependencies]
 dev = ["build", "twine", "matplotlib", "jupyterlab"]
