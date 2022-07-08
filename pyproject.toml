@@ -36,5 +36,5 @@ package-data = {"*" = ["data/*.csv"]}  # Automatically enables include-package-d
 
 [tool.setuptools.packages.find]
 where = ["."]  # list of folders that contain the packages (["."] by default)
-include = ["tensorpowerflow*"]
+include = ["tensorpowerflow*"]  # Look only one folder in the root
 namespaces = true

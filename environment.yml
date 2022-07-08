@@ -1,0 +1,7 @@
+name: powerflow
+channels:
+  - conda-forge
+  - defaults
+  - plotly
+dependencies:
+  - plotly
