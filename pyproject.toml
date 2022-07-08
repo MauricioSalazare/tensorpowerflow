@@ -19,7 +19,7 @@ dependencies = ["numpy",
                 "matplotlib",
                 "scipy",
                 "tqdm",
-                "numba",
+                "numba>=0.53.0",
                 "networkx",
                 "seaborn",
                 "pandapower"]
