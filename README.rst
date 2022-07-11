@@ -1,6 +1,7 @@
 .. image:: https://mybinder.org/badge_logo.svg
-   :target: https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?filepath=examples
+   :target: https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples
    :alt: binder
+
 
 
 TensorPowerFlow
