@@ -14,6 +14,8 @@
 .. image:: https://img.shields.io/pypi/v/tensorpowerflow
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
+.. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master
+
 TensorPowerFlow
 ===============
 
