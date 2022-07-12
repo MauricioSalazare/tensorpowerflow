@@ -11,6 +11,9 @@
 .. image:: https://img.shields.io/pypi/dm/tensorpowerflow.svg
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
+.. image:: https://img.shields.io/pypi/v/tensorpowerflow
+   :target: https://pypi.python.org/pypi/tensorpowerflow/
+
 TensorPowerFlow
 ===============
 
