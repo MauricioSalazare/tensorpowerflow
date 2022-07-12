@@ -1,24 +1,37 @@
+.. Binder
 .. image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples
    :alt: binder
 
+.. License
 .. image:: https://img.shields.io/github/license/MauricioSalazare/tensorpowerflow
    :target: https://github.com/MauricioSalazare/tensorpowerflow/blob/master/LICENSE
 
+.. Python versions supported
 .. image:: https://img.shields.io/pypi/pyversions/tensorpowerflow.svg
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
+.. Downloads per month
 .. image:: https://img.shields.io/pypi/dm/tensorpowerflow.svg
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
+.. Code size
+.. image:: https://img.shields.io/github/languages/code-size/MauricioSalazare/tensorpowerflow
+   :target: https://github.com/MauricioSalazare/tensorpowerflow
+
+.. PyPi version
 .. image:: https://img.shields.io/pypi/v/tensorpowerflow
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
+.. Build (GithubActions)
 .. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master
-   :target: https://github.com/MauricioSalazare/tensorpowerflow
+   :target: https://github.com/MauricioSalazare/tensorpowerflow/actions
 
-.. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master?label=Tests
-   :target: https://github.com/MauricioSalazare/tensorpowerflow
+.. Test (GithubActions)
+.. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master?label=tests
+   :target: https://github.com/MauricioSalazare/tensorpowerflow/actions
+
+
 
 
 TensorPowerFlow
@@ -66,13 +79,18 @@ Run the load base case as:
    solution_rnd = network_rnd.run_pf_sequential()
    print(solution_rnd["v"])
 
-More examples can be found in the examples folder (under development).
+More examples can be found in the `examples folder <https://github.com/MauricioSalazare/tensorpowerflow/tree/master/examples>`_ (under development).
+Also, you can try the package via jupyter lab clicking in the binder icon:
+
+.. image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples
+   :alt: binder
 
 Reading and citations:
 ----------------------
 The mathematical formulation of the power flow can be found at:
 
-"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series." J.S. Giraldo,
+*"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series."* J.S. Giraldo,
 O.D. Montoya, P.P. Vergara, F. Milano. Power Systems Computational Conference (PSCC) 2022. `link <http://faraday1.ucd.ie/archive/papers/laurent.pdf>`_
 
 
