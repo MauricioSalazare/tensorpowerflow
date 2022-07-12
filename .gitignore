@@ -1,7 +1,9 @@
+__pycache__/
 build/
 dist/
 tensorpowerflow.egg-info/
 examples/.ipynb_checkpoints/
+.tox/
 .ipynb_checkpoints/
 .idea/
 .pytests_cache/

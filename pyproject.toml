@@ -26,7 +26,7 @@ dependencies = ["numpy",
 requires-python = ">=3.0"
 
 [project.optional-dependencies]
-dev = ["build", "twine", "matplotlib", "jupyterlab"]
+dev = ["build", "twine", "matplotlib", "jupyterlab", "tox"]
 test = ["pytest"]
 doc = ["sphinx"]
 
@@ -38,3 +38,4 @@ package-data = {"*" = ["data/*.csv"]}  # Automatically enables include-package-d
 where = ["."]  # list of folders that contain the packages (["."] by default)
 include = ["tensorpowerflow*"]  # Look only one folder in the root
 namespaces = true
+
