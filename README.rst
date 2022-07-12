@@ -15,6 +15,11 @@
    :target: https://pypi.python.org/pypi/tensorpowerflow/
 
 .. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master
+   :target: https://github.com/MauricioSalazare/tensorpowerflow
+
+.. image:: https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master?label=Tests
+   :target: https://github.com/MauricioSalazare/tensorpowerflow
+
 
 TensorPowerFlow
 ===============
