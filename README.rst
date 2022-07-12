@@ -2,8 +2,8 @@
    :target: https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples
    :alt: binder
 
-.. image:: https://img.shields.io/badge/License-MIT-blue.svg
-   :target: https://lbesson.mit-license.org/
+.. image:: https://img.shields.io/github/license/MauricioSalazare/tensorpowerflow
+   :target: https://github.com/MauricioSalazare/tensorpowerflow/blob/master/LICENSE
 
 .. image:: https://img.shields.io/pypi/pyversions/tensorpowerflow.svg
    :target: https://pypi.python.org/pypi/tensorpowerflow/
