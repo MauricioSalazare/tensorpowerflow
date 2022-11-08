@@ -1,0 +1,19 @@
+name = "PC Game"
+[default]
+profile_name = "Profile"
+player_name = "Player"
+profile_created = 1979-05-27T07:32:00-08:00
+sound = true
+
+[default_inventory]
+warrior = [ [ "sword", "shield",], [ "plate armor", "plate helm",],]
+image = [ [ "staff", "wand",], [ "robe", "hood",],]
+items = [ "health potion", "antidote", "mana potion",]
+
+[user.profile]
+name = "profile1"
+player_name = "player1"
+class = "warrior"
+
+[user.settings]
+sound = false

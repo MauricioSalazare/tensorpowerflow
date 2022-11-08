@@ -1,10 +1,13 @@
 from tensorpowerflow import GridTensor
 import numpy as np
 
-# def test_compute_correct_answer():
-network = GridTensor()
-# V = network.run_pf_sequential()
-V = network.run_pf(algorithm="sequential")
+network = GridTensor(numba=False)
+# V1 = network.run_pf_hp_laurent_pardiso(solver="pardiso")
+# V2 = network.run_pf_sequential()
+# V3 = network.run_pf_tensor()
+# V4 = network.run_pf_sam_sequential_juan()
+#
+V1 = network.run_pf(algorithm="sequential")
 
 v_solution = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704551j,
               0.95767051+0.01019764j, 0.94765203+0.01316654j, 0.94090964+0.01600068j,
@@ -18,4 +21,7 @@ v_solution = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704
               0.93992817+0.01642583j, 0.93973182+0.01651086j, 0.9301316+0.02052908j,
               0.92952481+0.02079761j, 0.92922137+0.02093188j, 0.92912022+0.02097663j]
 
-assert np.allclose(V["v"], v_solution)
+# print(f"HP: {V1['time_pf']}")
+# print(f"Laurent: {V2['time_pf']}")
+#
+assert np.allclose(V1["v"], v_solution)

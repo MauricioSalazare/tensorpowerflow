@@ -1,5 +1,6 @@
 from .utils import create_pandapower_net, generate_network, net_test
 from .grid import GridTensor
+from .gpu_tensor.gpu_interface import GPUPowerFlow
 
 __version__ = "0.0.3"
 __license__ = "MIT"

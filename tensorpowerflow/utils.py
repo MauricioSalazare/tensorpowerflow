@@ -43,8 +43,13 @@ def generate_network(nodes, child=3, plot_graph=False, load_factor=2, line_facto
     PCT, ICT, ZCT = 1, 0, 0
     Tb, Pct, Ict, Zct = 0, PCT, ICT, ZCT
     nodes_ = pd.DataFrame(list(G.nodes), columns=["NODES"]) + 1
-    power = pd.DataFrame({"PD": np.random.normal(300 / load_factor, scale=50, size=nodes).round(2),
-                          "QD": np.random.normal(100 / load_factor, scale=50, size=nodes).round(2)})
+
+
+    active_ns = np.random.normal(50 * load_factor, scale=50, size=nodes).round(3)
+    reactive_ns = (active_ns * .1).round(3)
+
+    power = pd.DataFrame({"PD": active_ns,
+                          "QD": reactive_ns})
     nodes_properties_ = pd.DataFrame(np.tile([[Tb, Pct, Ict, Zct]], (nodes, 1)),
                                      columns=["Tb", "Pct", "Ict", "Zct"])
     nodes_properties = pd.concat([power, nodes_properties_], axis=1)
@@ -92,12 +97,12 @@ def create_pandapower_net(branch_info_: pd.DataFrame, bus_info_: pd.DataFrame):
     # Loads:
     for i, (idx, (node, p_kw, q_kvar)) in enumerate(bus_info[["NODES", "PD", "QD"]].iterrows()):
         pp.create_load(net, bus=bus_dict[node], p_mw=p_kw / 1000., q_mvar=q_kvar / 1000., name=f"Load")
-    print(f"Create net time: {perf_counter() - start}")
+    # print(f"Create net time: {perf_counter() - start}")
 
     return net
 
 def net_test(net):
-    """Compute the voltage for the base case. This only works for the net of 34 buses"""
+    """Compute the voltage for the base case using pandapower. This only works for the net of 34 buses"""
 
     v_solution = [0.98965162 + 0.00180549j, 0.98060256 + 0.00337785j, 0.96828145 + 0.00704551j,
                   0.95767051 + 0.01019764j, 0.94765203 + 0.01316654j, 0.94090964 + 0.01600068j,

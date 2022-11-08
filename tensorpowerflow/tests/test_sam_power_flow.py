@@ -1,10 +1,8 @@
 from tensorpowerflow import GridTensor
 import numpy as np
 
-# def test_compute_correct_answer():
-network = GridTensor()
-# V = network.run_pf_sequential()
-V = network.run_pf(algorithm="sequential")
+network = GridTensor(numba=True)
+V = network.run_pf_sam_sequential()
 
 v_solution = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704551j,
               0.95767051+0.01019764j, 0.94765203+0.01316654j, 0.94090964+0.01600068j,

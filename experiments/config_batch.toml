@@ -1,0 +1,23 @@
+[files]
+nodes_file = "nodes_param.csv"
+lines_file = "lines_param.csv"
+active_power_file = "active_power.csv"
+reactive_power_file = "reactive_power.csv"
+
+[graph]
+nodes = 100
+child = 3
+load_factor = 2
+line_factor = 3
+
+[grid]
+s_base = 100  # Comment
+v_base = 11
+iterations = 100
+tolerance = 1e-5  # For initialization of numba
+numba = true
+
+[power_flow]
+algorithm = "hp-tensor"
+sparse_solver = "pardiso"
+tolerance = 1e-5
