@@ -28,8 +28,8 @@ network = GridTensor(node_file_path="data/grid_data/Nodes_34.csv",
                      lines_file_path="data/grid_data/Lines_34.csv")
 
 #%% Run the power flow
-solutions = network.run_pf_tensor(active_power=active_power_time_series.values,
-                                  reactive_power=reactive_power_time_series.values)
+solutions = network.run_pf(active_power=active_power_time_series.values,
+                           reactive_power=reactive_power_time_series.values)
 
 #%% Plot results of voltage in one node
 ylabels = ["Volt. mag\n[p.u.]", "Active power\n[kW]", "Reactive power\n[kVAr]"]

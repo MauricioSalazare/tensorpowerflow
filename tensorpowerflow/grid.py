@@ -252,6 +252,7 @@ class GridTensor:
 
     def _compile_numba(self):
         # Compile JIT code running the base case PF at least once
+        # TODO: Check if the perfomnce stays with tensor inputs
         scrap = self.run_pf_tensor()
         scrap = self.run_pf_sam_sequential()
 
@@ -387,7 +388,7 @@ class GridTensor:
                flat_start: bool = True,
                start_value: np.ndarray = None,
                tolerance: float = 1e-6,
-               algorithm: str = "hp",
+               algorithm: str = "tensor",
                sparse_solver: str = "scipy"):
 
         """

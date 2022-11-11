@@ -7,3 +7,5 @@ numba
 networkx>=2.7.1
 seaborn>=0.11.2
 pandapower>=2.8.0
+mkl
+psutil
