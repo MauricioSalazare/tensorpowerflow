@@ -1,15 +1,9 @@
 from tensorpowerflow import GridTensor
 import numpy as np
 
-network = GridTensor(numba=False)
-# V1 = network.run_pf_hp_laurent_pardiso(solver="pardiso")
-# V2 = network.run_pf_sequential()
-# V3 = network.run_pf_tensor()
-# V4 = network.run_pf_sam_sequential_juan()
-#
-V1 = network.run_pf(algorithm="hp-tensor")
 
-v_solution = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704551j,
+# Solution of the base test case (34-bus system):
+V_SOLUTION = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704551j,
               0.95767051+0.01019764j, 0.94765203+0.01316654j, 0.94090964+0.01600068j,
               0.93719984+0.01754998j, 0.93283877+0.01937559j, 0.93073823+0.02026054j,
               0.9299309 +0.02058985j, 0.92968994+0.02068728j, 0.98003142+0.00362498j,
@@ -21,7 +15,18 @@ v_solution = [0.98965162+0.00180549j, 0.98060256+0.00337785j, 0.96828145+0.00704
               0.93992817+0.01642583j, 0.93973182+0.01651086j, 0.9301316+0.02052908j,
               0.92952481+0.02079761j, 0.92922137+0.02093188j, 0.92912022+0.02097663j]
 
-# print(f"HP: {V1['time_pf']}")
-# print(f"Laurent: {V2['time_pf']}")
-#
-assert np.allclose(V1["v"], v_solution)
+def test_compute_correct_answer_gpu_tensor():
+    network = GridTensor()
+    V = network.run_pf(algorithm="gpu-tensor")
+    assert np.allclose(V["v"], np.array(V_SOLUTION).astype(np.complex64))
+
+def test_compute_correct_answer_sparse_pardiso():
+    network = GridTensor()
+    V = network.run_pf(algorithm="hp", sparse_solver="pardiso")
+    assert np.allclose(V["v"], V_SOLUTION)
+
+
+
+if __name__ == "__main__":
+    test_compute_correct_answer_gpu_tensor()
+    test_compute_correct_answer_sparse_pardiso()

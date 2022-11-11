@@ -43,8 +43,8 @@ class GridTensor:
                  numba=True,
                  gpu_mode=True):
 
-        self.s_base = s_base  # This is better if loaded
-        self.v_base = v_base
+        self.s_base = s_base
+        self.v_base = v_base  # This is better loaded from the file (Extra column)
         self.z_base = (self.v_base ** 2 * 1000) / self.s_base
         self.i_base = self.s_base / (np.sqrt(3) * self.v_base)
 
@@ -316,10 +316,8 @@ class GridTensor:
         Create a huge sparse matrix to solve the sparse tensor problem.
         This is way more time efficient than using bmat from scipy.
 
-        It can be more efficient as the rows and col has a structure.
+        It can be more efficient as the rows and col has a structure. This will be done in future releases.
         """
-
-        # TODO: Move this method to the utils.
 
         n_steps = S_nom.shape[0]
         n_nodes = S_nom.shape[1]
@@ -379,12 +377,7 @@ class GridTensor:
     def reshape_tensor(sefl, tensor_array):
         original_shape = tensor_array.shape
         tau = np.prod(original_shape[:-1])
-
-        # # This makes a copy
-        # reshaped = tensor_array.reshape((tau, original_shape[-1]))
-
-        # This reshapes in place (No new memory use)
-        tensor_array.shape = (tau, original_shape[-1])
+        tensor_array.shape = (tau, original_shape[-1])   # This reshapes in place (No new memory use)
 
         return tensor_array, original_shape
 
@@ -392,19 +385,68 @@ class GridTensor:
                active_power: np.ndarray = None,
                reactive_power: np.ndarray = None,
                flat_start: bool = True,
-               start_value: np.array = None,
+               start_value: np.ndarray = None,
+               tolerance: float = 1e-6,
                algorithm: str = "hp",
-               sparse_solver: str = "pardiso"):
+               sparse_solver: str = "scipy"):
 
+        """
+        Computes the power flow on the grid for the active and reactive power matrices/tensor.
 
-        assert active_power.shape == reactive_power.shape, "Active and reactive power must have the same array shape."
+        Parameters:
+        -----------
+            active_power: np.ndarray: Real array/tensor type np.float64. The dimension of the tensor should be
+                            of the form (a x b x ... x m), where m is the number of buses minus the slack bus.
+                            e.g., m = nbus - 1. The values of the array are in kilo-Watt [kW].
+            reactive_power: np.ndarray: The array/tensor has the same characteristics than the active_power parameter.
+            flat_start: bool: Flag to indicate if ta flat start should be use. This is currently the default. All
+                            values of voltage starts at (1.0 + j0.0) p.u.
+            start_value: np.ndarray: Array/Tensor with the same dimension os active_power parameter. It indicates the
+                            warm start voltage values for the iterative algorithm. This array is in complex number
+                            of type np.complex128.
+            algorithm: str: Algorithm to be used for the power flow. The options are:
+                            "hp-tensor":  Tensor-sparse power flow. The sparse solver is defined by the "sparse_solver"
+                                        parameter.
+                            "tensor":  Tensor-dense power flow.
+                            "sequential": Power flow for only one instance of consumption. i.e., active_power and
+                                        reactive_power is a 1-D vector.
+                            "hp":  Power flow for only one instance of consumption, but using sparse matrices. The
+                                        sparse solver is defined by the "sparse_solver" parameter.
+                            "sam":  SAM (Successive Approximation Method).
+            sparse_solver: str: Sparse solver algorithm to be used to solve a problem of the type Ax = b. The options
+                            available are:
+                            "scipy":  Sparse solver from scipy.
+                            "pardiso":  Sparse solver from the Intel MKL library. Using this solver, we can factorize
+                                        the matrix A only one time in a separate step. (from the equation Ax=b).
+                                        This means that the iterative solution of the power flow is much faster.
+        Return:
+        -------
+            solution: dict: This is a dictionary with the voltage solutions and different times to
 
-        original_shape = active_power.shape
+            solution = {"v": Solution of voltage in complex numbers with the shape of the active_power array.
+                        "time_pre_pf": Time in seconds to compute the power flow before the iterative for loop.
+                        "time_pf":  Time in seconds to compute the power flow inside the iterative for loop.
+                        "time_algorithm": Total time algorithm. time_algorithm = time_pre_pf + time_pf
+                        "iterations": Total number of iterations to converge.
 
-        # TODO: Reshape form N-D to 2-D:
-        if active_power.ndim > 2:
-            active_power, original_shape = self.reshape_tensor(active_power)
-            reactive_power, _ = self.reshape_tensor(reactive_power)
+                        "convergence": Boolean indicating: True: Algorithm converged, False: it didn't.
+                        "iterations_log": NOT USED.
+                        "time_pre_pf_log": NOT USED.
+                        "time_pf_log": NOT USED.
+                        "convergence_log": NOT USED.
+                        }
+        """
+
+        is_tensor = False
+        if active_power is not None and reactive_power is not None:
+            assert active_power.shape == reactive_power.shape, "Active and reactive power arrays must have the " \
+                                                               "same shape."
+            original_shape = active_power.shape
+
+            if active_power.ndim > 2:  # Reshape form N-D to 2-D:
+                active_power, original_shape = self.reshape_tensor(active_power)
+                reactive_power, _ = self.reshape_tensor(reactive_power)
+                is_tensor = True
 
 
         kwargs = dict()
@@ -425,14 +467,14 @@ class GridTensor:
         else:
             raise ValueError("Incorrect power flow algorithm selected")
 
-        solutions = pf_algorithm(active_power=active_power,  # 2D
-                                 reactive_power=reactive_power,  # 2D
+        solutions = pf_algorithm(active_power=active_power,  # 2-D Array
+                                 reactive_power=reactive_power,  # 2-D Array
                                  flat_start=flat_start,
                                  start_value=start_value,
+                                 tolerance=tolerance,
                                  **kwargs)
 
-        # TODO: Solutions 2D - to N-D
-        if active_power.ndim > 2:
+        if is_tensor:  # Solutions from a 2-D array to an N-D array.
             solutions["v"].shape = original_shape
             active_power.shape = original_shape
             reactive_power.shape = original_shape
@@ -773,8 +815,7 @@ class GridTensor:
         if (active_power is not None) and (reactive_power is not None):
             assert active_power.ndim == 2, "Array should be two dimensional."
             assert reactive_power.ndim == 2, "Array should be two dimensional."
-            assert active_power.shape[1] == reactive_power.shape[
-                1] == self.nb - 1, "All load nodes must have power values."
+            assert active_power.shape[1] == reactive_power.shape[1] == self.nb - 1, "All load nodes must have power" \
             # rows are time steps, columns are nodes
         else:
             active_power = self.P_file[np.newaxis, :]
@@ -828,7 +869,7 @@ class GridTensor:
             iteration = 0
             tol = np.inf
 
-            while (iteration < self.iterations) & (tol >= self.tolerance):
+            while (iteration < iterations) & (tol >= tolerance):
                 N = H + 1.0 / np.conj(self.v_0)
                 V = sparse_solver(M, N)
 
@@ -845,7 +886,7 @@ class GridTensor:
                 pSolve.clear()
             end_time_pf = perf_counter() - (end_time_tol - start_time_tol)
 
-            if iteration == self.iterations:  # TODO: If the answer is 0, the iterations are < iterations but the solutions is not good.
+            if iteration == iterations:  # TODO: If the answer is 0, the iterations are < iterations but the solutions is not good.
                 flag_convergence = False
                 warnings.warn("Power flow did not converge.")
             else:

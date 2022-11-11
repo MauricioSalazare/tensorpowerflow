@@ -16,7 +16,7 @@ def compute_time_per_iteration(tables_tests_concat: pd.DataFrame):
     # The dataframe must have a simulation with 100 time steps for all grid sizes.
 
     tables_tests_concat["pf_per_iter"] = tables_tests_concat["time_algorithm"] / tables_tests_concat["time_steps"]
-    idx = tables_tests_concat["time_steps"] == 700
+    idx = tables_tests_concat["time_steps"] == 1000
     table_time_per_iter = tables_tests_concat.loc[idx].pivot(index="index", columns="grid_size", values="pf_per_iter")
 
     return table_time_per_iter
@@ -46,7 +46,8 @@ def compute_bound_table_for_experiment_tests(table_time_per_iter: pd.DataFrame,
 
 
 if __name__ == "__main__":
-    tables_tests_concat = pd.read_csv("data\saved_solutions_STATS_GRID_SWEEP_100PF.csv")
+    # tables_tests_concat = pd.read_csv("data\saved_solutions_STATS_GRID_SWEEP_100PF.csv")
+    tables_tests_concat = pd.read_csv("data\merged_data.csv")
     print(tables_tests_concat.sort_values(by=["grid_size", "time_pf"]))
 
     table_time_per_iteration = compute_time_per_iteration(tables_tests_concat)
@@ -79,7 +80,7 @@ if __name__ == "__main__":
                                                                                  minutes=max_waiting,
                                                                                  save_results=True)
     print(f"Maximum iterations per algorithm, grid size of 500 waiting time of {max_waiting} min. per algorithm.")
-    print(max_iterations_bounded_fixed_grid[500])
+    print(max_iterations_bounded_fixed_grid[1000])
     print(f"Experiment 3 time: {max_waiting * max_iterations_bounded_fixed_grid.shape[0]} min.")
 
     #%%

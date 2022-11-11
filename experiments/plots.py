@@ -408,18 +408,21 @@ def plotly_figure(data_frame, algorithm: str = "tensor", bootstrap: int = 1):
 if __name__ == "__main__":
 
     #%%
-    file_name_ts_sweep = r"data\test_ts_fixed_grid_500_DO_NOT_DELETE.csv"
+    # file_name_ts_sweep = r"data\test_ts_fixed_grid_500_DO_NOT_DELETE.csv"
+    file_name_ts_sweep = r"data\merged_data_plot.csv"
     test_solutions_ts_sweep = read_data(file_name=file_name_ts_sweep)
 
     # file_name_grid_sweep = r"data\test_grid_sweep_two_time_steps_1_1000_DO_NOT_DELETE.csv"
-    file_name_grid_sweep = r"data\test_grid_sweep_two_time_steps_1_1000_DO_NOT_DELETE.csv"
+    # file_name_grid_sweep = r"data\test_grid_sweep_two_time_steps_1_1000_DO_NOT_DELETE.csv"
+    file_name_grid_sweep =  r"data\merged_data_plot.csv"
     # file_name_grid_sweep = r"data\test_grid_sweep_1_1000.csv"
     # file_name_grid_sweep = r"sam_test.csv"
     # file_name_grid_sweep = r"delete_me.csv"
     # file_name_grid_sweep = r"delete_me_numba.csv"
     test_solutions_grid_sweep = read_data(file_name=file_name_grid_sweep)
 
-    file_name_ts_sweep = r"data\test_parameter_calculation_DO_NOT_DELETE.csv"
+    # file_name_ts_sweep = r"data\test_parameter_calculation_DO_NOT_DELETE.csv"
+    file_name_ts_sweep = r"data\merged_data_plot.csv"
     test_solutions_parameter = read_data(file_name=file_name_ts_sweep)
 
 
@@ -491,7 +494,7 @@ if __name__ == "__main__":
 
     # Figure 1:
     #                         |
-    #  Grid size sweep 1 TS   | Grid size sweep 100 TS
+    #  Grid size sweep 1 TS   | Grid size sweep 1000 TS
     #  -----------------------------------------------
     #  TS Sweep grid size=500 |  parameters
     #                         |
@@ -514,7 +517,7 @@ if __name__ == "__main__":
     filtered_by_grid_size = test_solutions_ts_sweep.loc[test_solutions_ts_sweep["grid_size"] == 500].copy()
 
     # Prepare data for parameter fit:
-    fitting_parameters_frame = fit_parameters(test_solutions_parameter)
+    fitting_parameters_frame = fit_parameters(data_frame=test_solutions_parameter)
 
 
     title_label = ["(a)", "(b)"]
@@ -616,7 +619,7 @@ if __name__ == "__main__":
     ax1[0].set_xlabel("Time steps", fontsize=6)
     ax1[0].set_title("(c)", fontsize=6)
 
-    ax1[0].legend(["SAM", "NR (Sparse)", "BFS", "Tensor (Dense)", "Tensor (Sparse)"],
+    ax1[0].legend(["SAM", "NR (Sparse)", "BFS", "Tensor (Dense)", "Tensor (Sparse)", "Tensor (GPU)"],
                   fontsize=6,
                   ncol=3,
                   bbox_to_anchor=(2.6, -0.3),

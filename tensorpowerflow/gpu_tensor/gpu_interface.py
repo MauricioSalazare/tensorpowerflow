@@ -10,7 +10,7 @@ def load_library():
     my_functions = None
 
     if platform == "linux" or platform == "linux2":
-        # linux
+        # linux (Hard coded in the meantime)
         so_file = r"/home/mauricio/PycharmProjects/gpu_tensorpf/shared_library_complex.so"
         my_functions = CDLL(so_file)
 

@@ -76,11 +76,11 @@ def runt_tests(N_POWER_FLOWS, NETWORK_SIZE, LIMIT_ALGORITHMS, FILE_NAME):
 
             pf_methods = [
                           (network_t_numba.run_pf, test_config_SAM),
-                          (pandapower_pf, test_config_newton_raphson),  # Pandapower on steroids
+                          # (pandapower_pf, test_config_newton_raphson),  # Pandapower on steroids
                           (pandapower_pf, test_config_backward_forward),
-                          (network_t_numba.run_pf, test_config_tensorpowerflow),  # Tensor Dense
-                          (network_t_numba.run_pf, test_config_HP_tensor),  # Tensor with sparse formulation
-                          (network_t_numba.run_pf, test_config_GPU_tensor),  # Tensor with sparse formulation
+                          # (network_t_numba.run_pf, test_config_tensorpowerflow),  # Tensor Dense
+                          # (network_t_numba.run_pf, test_config_HP_tensor),  # Tensor with sparse formulation
+                          # (network_t_numba.run_pf, test_config_GPU_tensor),  # Tensor with sparse formulation
                           ]
 
             test_results = {}
