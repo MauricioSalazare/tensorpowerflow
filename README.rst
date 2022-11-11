@@ -75,7 +75,7 @@ Run the load base case as:
     solution_tensor = network.run_pf(active_power=active_ns, reactive_power=reactive_ns)
     print(solution_tensor["v"])
 
-    #%% Generate random radial network of 100 nodes and a maximum of 1 to 3 branches per node.
+    #%% Generate random radial network of 100 nodes and a maximum of 3 branches per node.
     network_rnd = GridTensor.generate_from_graph(nodes=100, child=3, plot_graph=True)
     solution_rnd = network_rnd.run_pf()
     print(solution_rnd["v"])
