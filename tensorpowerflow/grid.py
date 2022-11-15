@@ -41,7 +41,7 @@ class GridTensor:
                  nodes_frame: pd.DataFrame = None,
                  lines_frame: pd.DataFrame = None,
                  numba=True,
-                 gpu_mode=True):
+                 gpu_mode=False):
 
         self.s_base = s_base
         self.v_base = v_base  # This is better loaded from the file (Extra column)
