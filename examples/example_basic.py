@@ -10,7 +10,7 @@ print(solution["v"])
 #%% Solve 10_000 power flows on the 34 node bus case.
 network_size = network.nb - 1  # Size of network without slack bus.
 active_ns = np.random.normal(50, scale=1, size=(10_000, network_size)) # Power in kW
-reactive_ns = active_ns * 0.1  # kVAr
+reactive_ns = active_ns * np.tan(np.arccos(.99))  # kVAr, Constant PF of 0.99
 solution_tensor = network.run_pf(active_power=active_ns, reactive_power=reactive_ns)
 print(solution_tensor["v"])
 
@@ -26,7 +26,7 @@ network = GridTensor(numba=True)  # Loads the basic 34 bus node network.
 active_ns = np.random.normal(50,  # Power in kW
                              scale=10,
                              size=(10, 8_760, 33)).round(3)  # Assume 1 slack variable
-reactive_ns = (active_ns * .1).round(3)  # Constant PF of 0.1
+reactive_ns = (active_ns * np.tan(np.arccos(.99))).round(3)  # kVAr, Constant PF of 0.99
 
 start_tensor_dense = perf_counter()
 solution = network.run_pf(active_power=active_ns, reactive_power=reactive_ns, algorithm="tensor")
