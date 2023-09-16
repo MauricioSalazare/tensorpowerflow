@@ -41,7 +41,7 @@ TensorPowerFlow
 What is TensorPowerFlow?
 ------------------------
 
-An ultra-fast power flow based on Laurent series expansion. The power flow is intended for applications where massive
+An ultra-fast power flow based on a fixed-point iteration algorithm. The power flow is intended for applications where massive
 amounts of power flow computations are required. e.g., electrical load time series, metaheuristics, electrical grid
 environments for reinforcement learning.
 

@@ -1,0 +1,1 @@
+The figure created in this folder is from script called plots.py

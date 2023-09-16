@@ -99,6 +99,7 @@ class pardisoSolver(object):
         elif mtype in [11, 13]:
             A = A.tocsr()
 
+        # 1. Step 1 direct solvers (reordering the matrix)
         if not A.has_sorted_indices:
             A.sort_indices()
 

@@ -152,7 +152,7 @@ def figure_1(data_frame: pd.DataFrame, time_steps: int):
         ax1_.grid(which="minor", linestyle="--", linewidth=0.4)
         ax1_.grid(which="major", linestyle="-", linewidth=0.8)
 
-        ax1_.set_xlabel("Grid size [nodes]")
+        ax1_.set_xlabel("Grid size nodes [" + r"$n$" + "]")
         ax1_.set_ylabel("Time power flow [sec]")
         ax1_.legend(fontsize="x-small")
 
@@ -165,7 +165,7 @@ def figure_1(data_frame: pd.DataFrame, time_steps: int):
         ax2_.set_title(time_column)
         ax2_.grid(which="minor", linestyle="--", linewidth=0.4)
         ax2_.grid(which="major", linestyle="-", linewidth=0.8)
-        ax2_.set_xlabel("Grid size [nodes]")
+        ax2_.set_xlabel("Grid size nodes [" + r"$n$" + "]")
         ax2_.set_ylabel("Time power flow [sec]")
     fig.suptitle(f"Total Power Flows: {time_steps}")
 
@@ -555,7 +555,7 @@ if __name__ == "__main__":
         ax_col.grid(which="major", linestyle="-", linewidth=linewidth_major_grid)
         ax_col.set_xlim((99, 5001))
 
-        ax_col.set_xlabel("Grid size [nodes]", fontsize=6)
+        ax_col.set_xlabel("Grid size nodes [" + r"$n$" + "]", fontsize=6)
         if ii == 0:
             ax_col.set_ylabel("Time power flow \n[sec]", fontsize=6)
 
@@ -616,13 +616,13 @@ if __name__ == "__main__":
     ax1[0].set_xticks(time_steps_list)
     ax1[0].tick_params(axis='both', which='major', labelsize=6)
     ax1[0].set_ylabel("Time power flow\n[sec]", fontsize=6)
-    ax1[0].set_xlabel("Time steps", fontsize=6)
+    ax1[0].set_xlabel("Dimensional tensor elements [" + r"$\tau$"+ "]", fontsize=6)
     ax1[0].set_title("(c)", fontsize=6)
 
     ax1[0].legend(["SAM", "NR (Sparse)", "BFS", "Tensor (Dense)", "Tensor (Sparse)", "Tensor (GPU)"],
                   fontsize=6,
                   ncol=3,
-                  bbox_to_anchor=(2.6, -0.3),
+                  bbox_to_anchor=(2.6, -0.35),
                   handlelength=1.5
                   )
 
@@ -682,7 +682,7 @@ if __name__ == "__main__":
     # ax1[1].legend(fontsize="x-small", loc="center right")
     # ax.grid(which="major", linestyle="--", linewidth=0.8)
     # ax2.grid(which="major", linestyle="-", linewidth=0.9)
-    ax1[1].set_xlabel("Grid size [nodes]", fontsize=6)
+    ax1[1].set_xlabel("Grid size nodes [" + r"$n$" + "]", fontsize=6)
     plt.savefig(r"figures\experiments.pdf")
 
 

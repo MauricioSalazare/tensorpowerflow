@@ -95,6 +95,7 @@ class GridTensor:
             self.start_time_pre_pf_tensor_constant_power_only = perf_counter()
 
             # TODO: Change to sparse inverse.
+            # By reduced version I mean the cases that \alpha_s=1, meaning constant power
             # self._K_ = -np.linalg.inv(self.Ydd)  # Reduced version of -B^-1 (Reduced version of _F_)
             self._K_ = np.array(-inv(self.Ydd_sparse).todense())  # Reduced version of -B^-1 (Reduced version of _F_)  TODO: check it exist .toarray()
             self._L_ = self._K_ @ self.Yds  # Reduced version of _W_
@@ -811,6 +812,7 @@ class GridTensor:
                                  tolerance: float = 1e-6,
                                  flat_start: bool = True,
                                  solver="pardiso"):
+        # This is the sparse version of the algorithm
 
 
         if (active_power is not None) and (reactive_power is not None):
