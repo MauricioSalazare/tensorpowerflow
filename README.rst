@@ -64,7 +64,7 @@ Run the load base case as:
     from time import perf_counter
 
     #%% Solve base case (34 node bus)
-    network = GridTensor()
+    network = GridTensor(gpu_mode=False)
     solution = network.run_pf()
     print(solution["v"])
 
