@@ -107,8 +107,8 @@ Reading and citations:
 ----------------------
 The mathematical formulation of the power flow can be found at:
 
-*"A Fixed-Point Current Injection Power Flow for Electric Distribution Systems using Laurent Series."* J.S. Giraldo,
-O.D. Montoya, P.P. Vergara, F. Milano. Power Systems Computational Conference (PSCC) 2022. `link <http://faraday1.ucd.ie/archive/papers/laurent.pdf>`_
+*"Tensor Power Flow Formulations for Multidimensional Analyses in Distribution Systems."* E.M. Salazar Duque,
+Juan S. Giraldo, Pedro P. Vergara, Phuong H. Nguyen, and Han (J.G.) Slootweg. 	arXiv:2403.04578 (2024). `link <https://arxiv.org/pdf/2403.04578>`_
 
 
 How to contact us
