@@ -555,7 +555,7 @@ if __name__ == "__main__":
         ax_col.grid(which="major", linestyle="-", linewidth=linewidth_major_grid)
         ax_col.set_xlim((99, 5001))
 
-        ax_col.set_xlabel("Grid size nodes [" + r"$n$" + "]", fontsize=6)
+        ax_col.set_xlabel("Grid size (bus-phases) [" + r"$b\phi$" + "]", fontsize=6)
         if ii == 0:
             ax_col.set_ylabel("Time power flow \n[sec]", fontsize=6)
 
@@ -682,8 +682,38 @@ if __name__ == "__main__":
     # ax1[1].legend(fontsize="x-small", loc="center right")
     # ax.grid(which="major", linestyle="--", linewidth=0.8)
     # ax2.grid(which="major", linestyle="-", linewidth=0.9)
-    ax1[1].set_xlabel("Grid size nodes [" + r"$n$" + "]", fontsize=6)
+    ax1[1].set_xlabel("Grid size (bus-phases) [" + r"$b\phi$" + "]", fontsize=6)
+
+
+
+    # Inset of the subplot lower right.
+    axins = ax1[1].inset_axes([0.25, 0.27, 0.3, 0.3],
+                              xlim=(4950, 5000),
+                              ylim=(0, 0.05))
+
+    colors = cycle(["red", "blue", "green", "olive", "purple", "fuchsia", "peru"])
+    line_styles = cycle(["-", "--", "-.", ":", "-", "--"])
+    marker_styles = cycle([".", ",", "o", "v", "<", ">", "1"])
+    for algorithm_name, color, _marker_style in zip(method_names, colors, marker_styles):
+        print(_marker_style)
+        filtered_frame_by_algorithm = fitting_parameters_frame.loc[
+            fitting_parameters_frame["algorithm"] == algorithm_name]
+        axins.plot(filtered_frame_by_algorithm["grid_size"].values.astype(float),
+                 filtered_frame_by_algorithm["c"].values,
+                 linestyle="-",
+                 color=color,
+                 marker=_markerstyle,
+                 markersize=marker_size,
+                 label="'c' " + algorithm_name)
+
+    axins.tick_params(axis='both', labelsize=4)
+    ax1[1].indicate_inset_zoom(axins, edgecolor="grey")
+
+
     plt.savefig(r"figures\experiments.pdf")
+
+
+#%%
 
 
 
