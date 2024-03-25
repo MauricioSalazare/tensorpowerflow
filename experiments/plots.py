@@ -711,7 +711,7 @@ if __name__ == "__main__":
 
 
     plt.savefig(r"figures\experiments.pdf")
-
+    fitting_parameters_frame.to_excel("fitting_parameters_frame.xlsx")
 
 #%%
 
