@@ -1,17 +1,10 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples)
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/MauricioSalazare/tensorpowerflow/blob/master/LICENSE)
-
 [![Python versions supported](https://img.shields.io/pypi/pyversions/tensorpowerflow.svg)](https://pypi.python.org/pypi/tensorpowerflow/)
-
 [![Downloads per month](https://img.shields.io/pypi/dm/tensorpowerflow.svg)](https://pypi.python.org/pypi/tensorpowerflow/)
-
 [![Code size](https://img.shields.io/github/languages/code-size/MauricioSalazare/tensorpowerflow)](https://github.com/MauricioSalazare/tensorpowerflow)
-
 [![PyPI - Python Version](https://img.shields.io/pypi/v/tensorpowerflow)](https://pypi.python.org/pypi/tensorpowerflow/)
-
 [![Build (GithubActions)](https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master)](https://github.com/MauricioSalazare/tensorpowerflow/actions)
-
 [![Test (GithubActions)](https://img.shields.io/github/workflow/status/MauricioSalazare/tensorpowerflow/Python%20package/master?label=tests)](https://github.com/MauricioSalazare/tensorpowerflow/actions)
 
 
@@ -82,12 +75,8 @@ Also, you can try the package via jupyter lab clicking in the binder icon:
 
 The mathematical formulation of the power flow can be found at:
 
-
-
----
 > *"Tensor Power Flow Formulations for Multidimensional Analyses in Distribution Systems."* E.M. Salazar Duque,
 Juan S. Giraldo, Pedro P. Vergara, Phuong H. Nguyen, and Han (J.G.) Slootweg. [arXiv:2403.04578 (2024)](https://arxiv.org/pdf/2403.04578).
-
 
 ## How to contact us
 
