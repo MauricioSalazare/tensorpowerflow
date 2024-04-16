@@ -11,6 +11,7 @@ except ModuleNotFoundError:
     pass
 
 def _load_default_34_node_case():
+
     stream_node_data = pkg_resources.resource_stream(__name__, "data/Lines_34.csv")
     stream_line_data = pkg_resources.resource_stream(__name__, "data/Nodes_34.csv")
 
