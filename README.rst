@@ -83,7 +83,7 @@ Run the load base case as:
     #%% Solve a tensor power flow. For 10 scenarios, 8_760 time steps (one year - 1 hr res), for the 33 PQ nodes.
     # Meaning that the dimensions of the tensor is (10, 8_760, 33)
 
-    network = GridTensor(numba=True)  # Loads the basic 34 bus node network.
+    network = GridTensor(numba=True, gpu_mode=False)  # Loads the basic 34 bus node network.
     active_ns = np.random.normal(50,  # Power in kW
                                  scale=10,
                                  size=(10, 8_760, 33)).round(3)  # Assume 1 slack variable
