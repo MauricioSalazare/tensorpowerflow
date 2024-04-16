@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "tensorpowerflow"
 version = "0.0.5"
 urls = {repository = "https://github.com/MauricioSalazare/tensorpowerflow"}
-authors = [{author = "Mauricio Salazar", email = "e.m.salazar.duque@tue.nl"},]
+authors = [{name = "Mauricio Salazar", email = "e.m.salazar.duque@tue.nl"},]
 description = "Ultra fast power flow based in Laurent series expansion."
 readme = "README.rst"
 keywords = ["power flow", "power systems", "time series loading"]
