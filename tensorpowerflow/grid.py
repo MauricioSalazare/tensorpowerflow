@@ -16,13 +16,6 @@ from .numbarize import (pre_power_flow_tensor,
 import psutil
 from tqdm import trange
 
-# Check if MKL solver is available
-try:
-    from tensorpowerflow.pyMKL import pardisoSolver
-    PARDISO_SOLVER_AVAILABLE = True
-except:
-    PARDISO_SOLVER_AVAILABLE = False
-    warnings.warn('Pardiso solver not found for sparse power flow. Install it with `pip install mkl`. Rolling back to scipy solver.')
 
 
 
@@ -411,9 +404,9 @@ class GridTensor:
             active_power: np.ndarray: Real array/tensor type np.float64. The dimension of the tensor should be
                             of the form (a x b x ... x m), where m is the number of buses minus the slack bus.
                             e.g., m = nbus - 1. The values of the array are in kilo-Watt [kW].
-            reactive_power: np.ndarray: The array/tensor has the same characteristics than the active_power parameter.
-            flat_start: bool: Flag to indicate if ta flat start should be use. This is currently the default. All
-                            values of voltage starts at (1.0 + j0.0) p.u.
+            reactive_power: np.ndarray: The array/tensor has the same characteristics as the active_power parameter.
+            flat_start: bool: Flag to indicate if the flat start should be used. This is currently the default. All
+                            values of voltage start at (1.0 + j0.0) p.u.
             start_value: np.ndarray: Array/Tensor with the same dimension os active_power parameter. It indicates the
                             warm start voltage values for the iterative algorithm. This array is in complex number
                             of type np.complex128.
@@ -474,6 +467,7 @@ class GridTensor:
             pf_algorithm = self.run_pf_tensor
         elif algorithm == "hp-tensor":
             pf_algorithm = self.run_pf_tensor_hp_laurent
+            kwargs.update(solver=sparse_solver)
         elif algorithm == "gpu-tensor":
             pf_algorithm = self.run_pf_tensor
             kwargs.update(compute="gpu")
@@ -823,7 +817,7 @@ class GridTensor:
                                  iterations: int = 100,
                                  tolerance: float = 1e-6,
                                  flat_start: bool = True,
-                                 solver="pardiso"):
+                                 solver="scipy"):
         # This is the sparse version of the algorithm
 
 
@@ -835,6 +829,16 @@ class GridTensor:
         else:
             active_power = self.P_file[np.newaxis, :]
             reactive_power = self.Q_file[np.newaxis, :]
+
+        if solver == "pardiso":
+            # Check if MKL solver is available
+            try:
+                from tensorpowerflow.pyMKL import pardisoSolver
+                PARDISO_SOLVER_AVAILABLE = True
+            except:
+                PARDISO_SOLVER_AVAILABLE = False
+                warnings.warn('Pardiso solver not found for sparse power flow. Install it with `pip install mkl`. '
+                              'Rolling back to scipy solver.')
 
         v0_solutions = []
         total_time_pre_pf_all = []
@@ -869,12 +873,12 @@ class GridTensor:
             M, H = self._make_big_sparse_matrices(S_nom[ idx[ii]:idx[ii + 1] ], self.Ydd_sparse, self.Yds_sparse)
 
             if solver == "pardiso":
-                if not PARDISO_SOLVER_AVAILABLE:
-                    sparse_solver = spsolve
-                else:
+                if PARDISO_SOLVER_AVAILABLE:
                     pSolve = pardisoSolver(M, mtype=13)  # Prepare to solve Mx = b
                     pSolve.run_pardiso(12)  # Factorize matrix M.
                     sparse_solver = pSolve.solve_pardiso
+                else:
+                    sparse_solver = spsolve
             elif solver == "scipy":
                 sparse_solver = spsolve
             else:
