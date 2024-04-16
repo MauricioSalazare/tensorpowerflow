@@ -33,7 +33,7 @@ Here we show four examples of what can be done with the packages:
     The number of nodes and branching per node can be controlled by parameters `nodes` and `child`, respectively.
 4. *Example 4:* Here we test the grid with a tensor of 3 dimensions. The first dimension is the number of scenarios 
     (10 in the example). The second dimension, the number of time steps (8.760 to simulate a 30 min. resolution 
-    consumption for one year). The third dimension is the number of PQ nodes in the grid (33 PQ nodes for the based 
+    consumption for one year). The third dimension is the number of PQ nodes in the grid (33 PQ nodes for the base 
     grid case).
 
 ```python
