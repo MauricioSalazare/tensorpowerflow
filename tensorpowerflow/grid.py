@@ -650,7 +650,8 @@ class GridTensor:
                               active_power: np.ndarray = None,
                               reactive_power: np.ndarray = None,
                               flat_start: bool = True,
-                              start_value: np.array = None):
+                              start_value: np.array = None,
+                              tolerance: float = 1e-6,):
 
         r"""
         Single time step power flow with numba performance increase.
@@ -899,7 +900,7 @@ class GridTensor:
 
             self.v_0 = self.v_0.reshape(ts_chunk, n_nodes)
 
-            if solver == "pardiso":
+            if solver == "pardiso" and PARDISO_SOLVER_AVAILABLE:
                 pSolve.clear()
             end_time_pf = perf_counter() - (end_time_tol - start_time_tol)
 
