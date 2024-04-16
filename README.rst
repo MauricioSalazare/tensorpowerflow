@@ -57,7 +57,7 @@ Example:
 --------
 Run the load base case as:
 
-.. code-block:: python
+.. code-block::
 
     from tensorpowerflow import GridTensor
     import numpy as np
