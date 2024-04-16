@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from scipy.sparse import csr_matrix, csc_matrix, diags
 from scipy.sparse.linalg import spsolve, inv
-from tensorpowerflow.pyMKL import pardisoSolver
 from time import perf_counter
 from numba import njit, set_num_threads
 import warnings
@@ -16,6 +15,17 @@ from .numbarize import (pre_power_flow_tensor,
                         power_flow_sam_sequential_constant_power_only)
 import psutil
 from tqdm import trange
+
+# Check if MKL solver is available
+try:
+    from tensorpowerflow.pyMKL import pardisoSolver
+    PARDISO_SOLVER_AVAILABLE = True
+except:
+    PARDISO_SOLVER_AVAILABLE = False
+    warnings.warn('Pardiso solver not found for sparse power flow. Install it with `pip install mkl`. Rolling back to scipy solver.')
+
+
+
 
 # TODO List:
 # 1. Allow to specify start value of the voltage (i.e., v_0)
@@ -642,7 +652,7 @@ class GridTensor:
                               flat_start: bool = True,
                               start_value: np.array = None):
 
-        """
+        r"""
         Single time step power flow with numba performance increase.
         This is the implementation of [1], algorithm called SAM (Successive Approximation Method)
 
@@ -655,7 +665,7 @@ class GridTensor:
         D[k] = 2 \alpha_p \odot V[k]^{* -1} \odot S_n^{*}
 
         Please note that for constant power only. i.e., \alpha_p = 1, \alpha_i = 0, \alpha_z = 0.
-        The matrices reduces to:
+        The matrices reduce to:
 
         A[k] = np.diag(V[k]^{* -2} * S_n^{*}), \odot == Hadamard product, * == complex conjugate
         B = Y_dd
@@ -857,10 +867,13 @@ class GridTensor:
             start_time_pre_pf = perf_counter()
             M, H = self._make_big_sparse_matrices(S_nom[ idx[ii]:idx[ii + 1] ], self.Ydd_sparse, self.Yds_sparse)
 
-            if solver == "pardiso":  # TODO: Add the flag to see if pardiso is in the system
-                pSolve = pardisoSolver(M, mtype=13)  # Prepare to solve Mx = b
-                pSolve.run_pardiso(12)  # Factorize matrix M.
-                sparse_solver = pSolve.solve_pardiso
+            if solver == "pardiso":
+                if not PARDISO_SOLVER_AVAILABLE:
+                    sparse_solver = spsolve
+                else:
+                    pSolve = pardisoSolver(M, mtype=13)  # Prepare to solve Mx = b
+                    pSolve.run_pardiso(12)  # Factorize matrix M.
+                    sparse_solver = pSolve.solve_pardiso
             elif solver == "scipy":
                 sparse_solver = spsolve
             else:
@@ -931,3 +944,6 @@ class GridTensor:
 
     def line_currents(self, volt_solutions=None):
         raise NotImplementedError
+
+if __name__ == "__main__":
+    testing = GridTensor()

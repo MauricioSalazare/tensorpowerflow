@@ -3,9 +3,12 @@
 from tensorpowerflow import GridTensor
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
+matplotlib.use('TKAgg')
 
 # Load 2 years of data at 30 min resolution (35040 entries)
+print("Loading data...")
 active_power_time_series = pd.read_csv("data/time_series/active_power_example.csv",
                                        index_col=0,
                                        parse_dates=True)
@@ -14,6 +17,7 @@ reactive_power_time_series = pd.read_csv("data/time_series/reactive_power_exampl
                                          parse_dates=True)
 
 #%% Inspect data
+print("Inspecting data...")
 fig, ax = plt.subplots(2, 1, figsize=(10, 5))
 plt.subplots_adjust(hspace=0.5, bottom=0.15, top=0.95)
 active_power_time_series.head(48 * 7).plot(ax=ax[0], legend=False, color="b")
@@ -25,9 +29,11 @@ ax[1].set_xlabel("")
 
 #%% Create the grid
 network = GridTensor(node_file_path="data/grid_data/Nodes_34.csv",
-                     lines_file_path="data/grid_data/Lines_34.csv")
+                     lines_file_path="data/grid_data/Lines_34.csv",
+                     gpu_mode=False)
 
 #%% Run the power flow
+print("Solving power flow...")
 solutions = network.run_pf(active_power=active_power_time_series.values,
                            reactive_power=reactive_power_time_series.values)
 

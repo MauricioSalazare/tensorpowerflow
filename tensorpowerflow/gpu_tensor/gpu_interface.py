@@ -15,9 +15,10 @@ def load_library():
         my_functions = CDLL(so_file)
 
     elif platform == "darwin":
-        raise NotImplementedError("MacOS is not currently supported.")
+        raise NotImplementedError("GPU in MacOS is not currently supported.")
 
     elif platform == "win32":
+        raise NotImplementedError("GPU implementation in Windows is disabled. Contact the maintainer for more info.")
         # TODO: Fallback if the gpu library is not found.
         # Windows.
         # os.add_dll_directory(r"C:\Users\20175334\Documents\PycharmProjects\tensorpowerflow\experiments\dll")

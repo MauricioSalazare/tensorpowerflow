@@ -2,24 +2,24 @@ from tensorpowerflow import GridTensor
 import numpy as np
 from time import perf_counter
 
-#%% Solve base case (34 node bus)
-network = GridTensor()
+#%% Example 1: Solve base case (34 node bus)
+network = GridTensor(gpu_mode=False)
 solution = network.run_pf()
 print(solution["v"])
 
-#%% Solve 10_000 power flows on the 34 node bus case.
+#%% Example 2: Solve 10_000 power flows on the 34 node bus case.
 network_size = network.nb - 1  # Size of network without slack bus.
 active_ns = np.random.normal(50, scale=1, size=(10_000, network_size)) # Power in kW
 reactive_ns = active_ns * 0.1  # kVAr
 solution_tensor = network.run_pf(active_power=active_ns, reactive_power=reactive_ns)
 print(solution_tensor["v"])
 
-#%% Generate random radial network of 100 nodes and a maximum of 1 to 3 branches per node.
+#%% Example 3: Generate random radial network of 100 nodes and a maximum of 1 to 3 branches per node.
 network_rnd = GridTensor.generate_from_graph(nodes=100, child=3, plot_graph=True)
 solution_rnd = network_rnd.run_pf()
 print(solution_rnd["v"])
 
-#%% Solve a tensor power flow. For 10 scenarios, 8_760 time steps (one year - 1 hr res), for the 33 PQ nodes.
+#%% Example 4: Solve a tensor power flow. For 10 scenarios, 8_760 time steps (one year - 1 hr res), for the 33 PQ nodes.
 # Meaning that the dimensions of the tensor is (10, 8_760, 33)
 
 network = GridTensor(numba=True)  # Loads the basic 34 bus node network.
