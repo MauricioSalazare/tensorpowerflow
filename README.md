@@ -1,7 +1,7 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/MauricioSalazare/tensorpowerflow/master?urlpath=lab/tree/examples)
 [![MIT License](https://img.shields.io/badge/License-MIT-yellow)](https://github.com/MauricioSalazare/tensorpowerflow/blob/master/LICENSE)
 [![Python versions supported](https://img.shields.io/pypi/pyversions/tensorpowerflow.svg)](https://pypi.python.org/pypi/tensorpowerflow/)
-[![Downloads per month](https://img.shields.io/pypi/dm/tensorpowerflow.svg)](https://pypi.python.org/pypi/tensorpowerflow/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/tensorpowerflow.svg)](https://pypi.python.org/pypi/tensorpowerflow/)
 [![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/MauricioSalazare/tensorpowerflow)](https://github.com/MauricioSalazare/tensorpowerflow)
 [![PyPI - Version](https://img.shields.io/pypi/v/tensorpowerflow)](https://pypi.python.org/pypi/tensorpowerflow/)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/MauricioSalazare/tensorpowerflow/python-package.yml)](https://github.com/MauricioSalazare/tensorpowerflow/actions)
