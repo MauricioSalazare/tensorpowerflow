@@ -6,7 +6,6 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/tensorpowerflow)](https://pypi.python.org/pypi/tensorpowerflow/)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/MauricioSalazare/tensorpowerflow/python-package.yml)](https://github.com/MauricioSalazare/tensorpowerflow/actions)
 
-
 # TensorPowerFlow
 
 ## What is TensorPowerFlow?
