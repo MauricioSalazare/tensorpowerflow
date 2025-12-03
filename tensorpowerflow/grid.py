@@ -55,7 +55,8 @@ class GridTensor:
         self.iterations = iterations
         self.tolerance = tolerance
 
-        if node_file_path is None and lines_file_path is None:
+        if (node_file_path is None and lines_file_path is None
+                and nodes_frame is None and lines_frame is None):
             # here node frame and line frame are given to the inverse value
             _nodes_frame, _lines_frame = _load_default_34_node_case()
             self.branch_info = _nodes_frame
