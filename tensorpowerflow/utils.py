@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from time import perf_counter
 import pandas as pd
-import pkg_resources
+from importlib.resources import files
 
 try:
     import pandapower as pp
@@ -12,24 +12,29 @@ except ModuleNotFoundError:
 
 
 def _load_default_34_node_case():
+    line_path = files(__package__).joinpath("data/Lines_34.csv")
+    node_path = files(__package__).joinpath("data/Nodes_34.csv")
 
-    stream_node_data = pkg_resources.resource_stream(__name__, "data/Lines_34.csv")
-    stream_line_data = pkg_resources.resource_stream(__name__, "data/Nodes_34.csv")
+    with line_path.open(encoding="utf-8") as f:
+        lines_frame = pd.read_csv(f)
 
-    nodes_frame = pd.read_csv(stream_node_data, encoding="utf-8")
-    lines_frame = pd.read_csv(stream_line_data, encoding="utf-8")
+    with node_path.open(encoding="utf-8") as f:
+        nodes_frame = pd.read_csv(f)
 
-    return nodes_frame, lines_frame
+    return lines_frame, nodes_frame
 
 
 def _load_default_2_node_case():
-    stream_node_data = pkg_resources.resource_stream(__name__, "data/Lines_2.csv")
-    stream_line_data = pkg_resources.resource_stream(__name__, "data/Nodes_2.csv")
+    line_path = files(__package__).joinpath("data/Lines_2.csv")
+    node_path = files(__package__).joinpath("data/Nodes_2.csv")
 
-    nodes_frame = pd.read_csv(stream_node_data, encoding="utf-8")
-    lines_frame = pd.read_csv(stream_line_data, encoding="utf-8")
+    with line_path.open(encoding="utf-8") as f:
+        lines_frame = pd.read_csv(f)
 
-    return nodes_frame, lines_frame
+    with node_path.open(encoding="utf-8") as f:
+        nodes_frame = pd.read_csv(f)
+
+    return lines_frame, nodes_frame
 
 
 def generate_network(nodes, child=3, plot_graph=False, load_factor=2, line_factor=3):
@@ -68,7 +73,7 @@ def generate_network(nodes, child=3, plot_graph=False, load_factor=2, line_facto
     # R, X = 0.3144, 0.054
     R, X = 0.3144 / line_factor, 0.054 / line_factor
     lines = (
-        pd.DataFrame.from_records(list(G.edges), columns=["FROM", "TO"]) + 1
+            pd.DataFrame.from_records(list(G.edges), columns=["FROM", "TO"]) + 1
     )  # Count starts from 1
     lines_properties = pd.DataFrame(
         np.tile([[R, X, 0, 1, 1]], (LINES, 1)), columns=["R", "X", "B", "STATUS", "TAP"]
@@ -95,7 +100,7 @@ def create_pandapower_net(branch_info_: pd.DataFrame, bus_info_: pd.DataFrame):
     # Slack
     bus_slack = bus_info[bus_info["Tb"] == 1]["NODES"].values
     assert (
-        len(bus_slack.shape) == 1 and bus_slack.shape[0] == 1
+            len(bus_slack.shape) == 1 and bus_slack.shape[0] == 1
     ), "Only one slack bus supported"
     pp.create_ext_grid(
         net, bus=bus_dict[bus_slack.item()], vm_pu=1.00, name="Grid Connection"
@@ -103,7 +108,7 @@ def create_pandapower_net(branch_info_: pd.DataFrame, bus_info_: pd.DataFrame):
 
     # Lines
     for i, (idx, (from_bus, to_bus, res, x_react, b_susceptance)) in enumerate(
-        branch_info[["FROM", "TO", "R", "X", "B"]].iterrows()
+            branch_info[["FROM", "TO", "R", "X", "B"]].iterrows()
     ):
         pp.create_line_from_parameters(
             net,
@@ -119,7 +124,7 @@ def create_pandapower_net(branch_info_: pd.DataFrame, bus_info_: pd.DataFrame):
 
     # Loads:
     for i, (idx, (node, p_kw, q_kvar)) in enumerate(
-        bus_info[["NODES", "PD", "QD"]].iterrows()
+            bus_info[["NODES", "PD", "QD"]].iterrows()
     ):
         pp.create_load(
             net,
